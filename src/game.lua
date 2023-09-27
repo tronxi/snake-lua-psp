@@ -44,16 +44,16 @@ function game.start()
             game.debug = not game.debug
         end
         if not game.paused then
-            if buttons.down or buttons.analogy > 0 then
+            if buttons.down then
                 game.snakeBody:down(game.speed)
                 game.lastMove = "down"
-            elseif buttons.up or buttons.analogy < 0 then
+            elseif buttons.up then
                 game.snakeBody:up(game.speed)
                 game.lastMove = "up"
-            elseif buttons.left or buttons.analogx < 0 then
+            elseif buttons.left then
                 game.snakeBody:left(game.speed)
                 game.lastMove = "left"
-            elseif buttons.right or buttons.analogx > 0 then
+            elseif buttons.right then
                 game.snakeBody:right(game.speed)
                 game.lastMove = "right"
             end
@@ -73,7 +73,9 @@ function game.start()
         os.delay(100)
 
         if game.debug then
-            game.log(game.snakeBody:currentX()..","..game.snakeBody:currentY()
+            game.log(
+            "v0.0.2"
+            .."\n"..game.snakeBody:currentX()..","..game.snakeBody:currentY()
             .."\n"..game.lastMove
             .."\n"..#game.snakeBody.tail)
         end
