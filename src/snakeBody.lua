@@ -1,6 +1,7 @@
 snakeBody = {}
 snakeBody.currentPosition = require("src/position")
 snakeBody.tail = {}
+snakeBody.size = 5
 
 function snakeBody:currentX()
     return self.currentPosition.x
@@ -11,19 +12,34 @@ function snakeBody:currentY()
 end
 
 function snakeBody:right(speed)
+    self:addCurrentToTail()
     self.currentPosition:right(speed)
 end
 
 function snakeBody:left(speed)
+    self:addCurrentToTail()
     self.currentPosition:left(speed)
 end
 
 function snakeBody:down(speed)
+    self:addCurrentToTail()
     self.currentPosition:down(speed)
 end
 
 function snakeBody:up(speed)
+    self:addCurrentToTail()
     self.currentPosition:up(speed)
+end
+
+function snakeBody:addCurrentToTail()
+    local newPosition = {
+        x = self.currentPosition.x,
+        y = self.currentPosition.y
+    }
+    table.insert(self.tail, newPosition)
+    if #self.tail == self.size then
+        table.remove(self.tail, 1)
+    end
 end
 
 function snakeBody:limitPosition(offset) 

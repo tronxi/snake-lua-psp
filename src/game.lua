@@ -33,6 +33,9 @@ function game.start()
         buttons.read()
     
         game.snake:blit(game.snakeBody:currentX(), snakeBody:currentY())
+        for i,v in ipairs(game.snakeBody.tail) do
+            game.snake:blit(v.x, v.y)
+        end
 
         if buttons.start then
             game.paused = not game.paused
@@ -71,7 +74,8 @@ function game.start()
 
         if game.debug then
             game.log(game.snakeBody:currentX()..","..game.snakeBody:currentY()
-            .."\n"..game.lastMove)
+            .."\n"..game.lastMove
+            .."\n"..#game.snakeBody.tail)
         end
 
         game.snakeBody:limitPosition(20)
