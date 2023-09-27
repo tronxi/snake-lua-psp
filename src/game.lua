@@ -1,6 +1,6 @@
 game = {}
 game.speed = 20
-game.position = require("src/position")
+game.snakeBody = require("src/snakeBody")
 game.lastMove = "nothing"
 game.paused = false
 game.debug = false
@@ -32,7 +32,7 @@ function game.start()
     
         buttons.read()
     
-        game.snake:blit(game.position.x, game.position.y)
+        game.snake:blit(game.snakeBody:currentX(), snakeBody:currentY())
 
         if buttons.start then
             game.paused = not game.paused
@@ -42,27 +42,27 @@ function game.start()
         end
         if not game.paused then
             if buttons.down or buttons.analogy > 0 then
-                game.position:down(game.speed)
+                game.snakeBody:down(game.speed)
                 game.lastMove = "down"
             elseif buttons.up or buttons.analogy < 0 then
-                game.position:up(game.speed)
+                game.snakeBody:up(game.speed)
                 game.lastMove = "up"
             elseif buttons.left or buttons.analogx < 0 then
-                game.position:left(game.speed)
+                game.snakeBody:left(game.speed)
                 game.lastMove = "left"
             elseif buttons.right or buttons.analogx > 0 then
-                game.position:right(game.speed)
+                game.snakeBody:right(game.speed)
                 game.lastMove = "right"
             end
 
             if game.lastMove == "down" then
-                game.position:down(game.speed)
+                game.snakeBody:down(game.speed)
             elseif game.lastMove == "up" then
-                game.position:up(game.speed)
+                game.snakeBody:up(game.speed)
             elseif game.lastMove == "left" then
-                game.position:left(game.speed)
+                game.snakeBody:left(game.speed)
             elseif game.lastMove == "right" then
-                game.position:right(game.speed)
+                game.snakeBody:right(game.speed)
             end
         else
             screen.print(210, 120, "PAUSED")
@@ -70,11 +70,11 @@ function game.start()
         os.delay(100)
 
         if game.debug then
-            game.log(game.position.x..","..game.position.y
+            game.log(game.snakeBody:currentX()..","..game.snakeBody:currentY()
             .."\n"..game.lastMove)
         end
 
-        game.position:limitPosition(20)
+        game.snakeBody:limitPosition(20)
         screen.flip()
     end
 
